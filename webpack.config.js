@@ -18,7 +18,7 @@ module.exports = (env, options) => {
     entry: "./app.js",
     output: {
       filename: "app.js",
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "server/dist"),
       libraryTarget: "umd",
     },
     devtool: isDevMode ? "source-map" : false,

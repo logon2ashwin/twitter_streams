@@ -28,7 +28,25 @@
         top: 10px;
         border-radius: 5px;
         background-color: #e8e8e8;
+        color: #948b8b;
         padding: 0 0.25rem;  
+      }
+      .tweet-user {
+        position: absolute;
+        display: inline-block;
+        left: 10px;
+        top: 10px;
+        display: flex;
+        align-items: center;
+        .tweet-user-icon {
+          color: #1DA1F2;
+          width: 25px;
+          height: 25px;
+        }
+        .user-name {
+          color: #948b8b;
+          padding-left: 0.5rem;
+        }
       }
     }
   }

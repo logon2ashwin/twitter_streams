@@ -38,7 +38,7 @@ const SearchComponent = () =>  {
       animate="finalPosition"
     >
       <motion.div className="search-box">
-        <input type="text" name="searchPhrase" id="searchPhrase" placeholder="Enter Your Keyword" ref={searchRef} />
+        <input type="text" name="searchPhrase" id="searchPhrase" placeholder="Enter Your Keyword" ref={searchRef} onKeyDown={event => event.keyCode===13 ? updateSearchPhrase() : null} />
         <AiOutlineSearch className="search-icon" onClick={()=> updateSearchPhrase()}/>
       </motion.div>
       <motion.div className="tweets-icon">

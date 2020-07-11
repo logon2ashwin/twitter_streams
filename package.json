@@ -8,7 +8,8 @@
     "devserver": "cd server;export ENV=dev;nodemon --inspect ./server.js",
     "server": "node ./server/server.js",
     "devapp": "webpack-dev-server --mode=development",
-    "buildapp": "webpack --mode=production"
+    "buildapp": "webpack --mode=production",
+    "prodserver": "cd server;export ENV=prod;nodemon --inspect ./server.js" 
   },
   "keywords": [],
   "author": "Ashwin",

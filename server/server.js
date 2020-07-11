@@ -17,7 +17,6 @@ app.locals.isDev = process.env.ENV === "dev";
       port : process.env.PORT,
       API_Key : process.env.API_KEY,
       API_SECRET_KEY : process.env.API_SECRET_KEY,
-      BEARER : process.env.BEARER,
       ACCESS_TOKEN : process.env.ACCESS_TOKEN,
       ACCESS_TOKEN_SECRET : process.env.ACCESS_TOKEN_SECRET
     };
@@ -29,6 +28,11 @@ const io = socketio(server);
 
 app.use(bodyParser.json());
 
+if(!app.locals.isDev) {
+  app.use(express.static('dist'));
+}
+
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -39,7 +43,6 @@ app.use((req, res, next) => {
   next();
 });
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 require('./modules/twitterAPI.js')(app, io);
 
