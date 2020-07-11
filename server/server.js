@@ -15,7 +15,7 @@ app.locals.isDev = process.env.ENV === "dev";
   else {
     app.locals.config = {
       port : process.env.PORT,
-      API_Key : process.env.API_KEY,
+      API_KEY : process.env.API_KEY,
       API_SECRET_KEY : process.env.API_SECRET_KEY,
       ACCESS_TOKEN : process.env.ACCESS_TOKEN,
       ACCESS_TOKEN_SECRET : process.env.ACCESS_TOKEN_SECRET

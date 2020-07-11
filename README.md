@@ -26,7 +26,7 @@ module.exports = {
 - For Prod environment you need to set the following fields as environment variable.
 
 ```
-API_Key
+API_KEY
 API_SECRET_KEY
 ACCESS_TOKEN
 ACCESS_TOKEN_SECRET
