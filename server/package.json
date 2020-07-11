@@ -12,7 +12,6 @@
     "express": "^4.17.1",
     "node-tweet-stream": "^2.0.3",
     "nodemon": "^2.0.4",
-    "socketio": "^1.0.0",
-    "twitter": "^1.7.1"
+    "socketio": "^1.0.0"
   }
 }

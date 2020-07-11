@@ -11,6 +11,7 @@ const HomeComponent = () => {
   useEffect(()=> {
     let connection = socket.getConnection();
     connection.on('tweets', function(data){
+      console.log(data);
       dispatch(loadTweets(data));
     });
     connection.on('disconnect', function(){
