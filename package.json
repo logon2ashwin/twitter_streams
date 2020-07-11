@@ -9,7 +9,7 @@
     "server": "node ./server/server.js",
     "devapp": "webpack-dev-server --mode=development",
     "buildapp": "webpack --mode=production",
-    "prodserver": "cd server;export ENV=prod;nodemon --inspect ./server.js" 
+    "start": "cd server;node ./server.js" 
   },
   "keywords": [],
   "author": "Ashwin",
