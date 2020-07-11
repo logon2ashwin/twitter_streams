@@ -4,3 +4,4 @@ server/yarn.lock
 yarn.lock
 server/package-lock.json
 package-lock.json
+server/apiconfig.js

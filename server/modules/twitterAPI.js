@@ -1,79 +1,61 @@
-const Twitter = require('twitter');
+var Twitter = require('node-tweet-stream');
 
 module.exports = (app, io) => {
+    // Twitter OAuth Credintials
     let twitter = new Twitter({
-        consumer_key: "gpuOqVKo78mkdpmL9bWvqTqmM",
-        consumer_secret: "60Q0VUtTeG23LG1rJPhTJH9JnQ4nwpy5Uea4lI1hX5ldWmFOOC",
-        access_token_key: "233959030-bXtSkljJuIJHqqHiH5fjeRNqo2DRq2EFPf8SV4NG",
-        access_token_secret: "G56Eyi58rD5MaFx5lIlO40eoBrQTEGlYXKCEJzHRT230L"
+      consumer_key: app.locals.config.API_KEY,
+      consumer_secret: app.locals.config.API_SECRET_KEY,
+      token: app.locals.config.ACCESS_TOKEN,
+      token_secret: app.locals.config.ACCESS_TOKEN_SECRET 
     });
 
     let socketConnection;
-    let twitterStream;
 
-    app.locals.searchTerm = 'JavaScript'; //Default search term for twitter stream.
-    app.locals.showRetweets = false; //Default
+    app.locals.searchTerm = 'tony';
+    app.locals.showRetweets = false;
 
-    /**
-     * Resumes twitter stream.
-     */
-    const stream = () => {
-        console.log('Resuming for ' + app.locals.searchTerm);
-        twitter.stream('statuses/filter', { track: app.locals.searchTerm }, (stream) => {
-            stream.on('data', (tweet) => {
-                sendMessage(tweet);
-            });
+    twitter.on('tweet', function (tweet) {
+        console.log('tweet received for', app.locals.searchTerm);
+        sendMessage(tweet);
+    })
+      
+    twitter.on('error', function (err) {
+        console.log(err.message);
+    })
 
-            stream.on('error', (error) => {
-                console.log(error);
-            });
+    twitter.track(app.locals.searchTerm);
 
-            twitterStream = stream;
-        });
-    }
-
-    /**
-     * Sets search term for twitter stream.
-     */
     app.post('/setSearchTerm', (req, res) => {
-        let term = req.body.term;
+        twitter.untrack(app.locals.searchTerm);
+        let term = req.body.searchTerm;
         app.locals.searchTerm = term;
-        twitterStream.destroy();
-        stream();
-    });
-
-    /**
-     * Pauses the twitter stream.
-     */
-    app.post('/pause', (req, res) => {
-        console.log('Pause');
-        twitterStream.destroy();
-    });
-
-    /**
-     * Resumes the twitter stream.
-     */
-    app.post('/resume', (req, res) => {
-        console.log('Resume');
-        stream();
+        console.log("search term changed to", app.locals.searchTerm);
+        twitter.track(app.locals.searchTerm);
     });
 
     //Establishes socket connection.
     io.on("connection", socket => {
         socketConnection = socket;
-        stream();
+        // stream();
         socket.on("connection", () => console.log("Client connected"));
         socket.on("disconnect", () => console.log("Client disconnected"));
+        socket.on("updateSearchTerm", (data, fn) => {
+            twitter.untrack(app.locals.searchTerm);
+            app.locals.searchTerm = data.term;
+            console.log("search term changed to", app.locals.searchTerm);
+            twitter.track(app.locals.searchTerm);
+            fn('success');
+        });
     });
 
-    /**
-     * Emits data from stream.
-     * @param {String} msg 
-     */
+    
+
     const sendMessage = (msg) => {
         if (msg.text.includes('RT')) {
             return;
         }
-        socketConnection.emit("tweets", msg);
+        if(socketConnection) {
+            socketConnection.emit("tweets", msg);
+        }
     }
 };
