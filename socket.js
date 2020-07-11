@@ -4,7 +4,7 @@ let config = {
   host : "127.0.0.1",
   port: 5001
 }
-if(process.env.ENV !== "dev") {
+if(process.env.ENV && process.env.ENV !== "dev") {
   config.port = process.env.PORT;
 }
 let socket;
