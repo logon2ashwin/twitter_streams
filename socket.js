@@ -17,6 +17,7 @@ let status = "DISCONNECTED";
 
 const init = () => {
   // http://${config.dev.host}:${config.dev.port}
+  // config.prod.host
   socket = io(config.prod.host);
   socket.on('connect', function(){ 
     status = "CONNECTED";
