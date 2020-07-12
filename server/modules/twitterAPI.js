@@ -10,35 +10,29 @@ module.exports = (app, io) => {
     });
 
     let socketConnection;
-
     app.locals.searchTerm = 'Tony';
     app.locals.showRetweets = false;
-
+    
     twitter.on('tweet', function (tweet) {
         console.log('tweet received for', app.locals.searchTerm);
         sendMessage(tweet);
-    })
-      
+    });
+
     twitter.on('error', function (err) {
         console.log(err.message);
-    })
-
-    twitter.track(app.locals.searchTerm);
-
-    app.post('/setSearchTerm', (req, res) => {
-        twitter.untrack(app.locals.searchTerm);
-        let term = req.body.searchTerm;
-        app.locals.searchTerm = term;
-        console.log("search term changed to", app.locals.searchTerm);
-        twitter.track(app.locals.searchTerm);
     });
 
     //Establishes socket connection.
     io.on("connection", socket => {
         socketConnection = socket;
-        // stream();
-        socket.on("connection", () => console.log("Client connected"));
-        socket.on("disconnect", () => console.log("Client disconnected"));
+        socket.on("connection", () => {
+            console.log("client connected");
+            twitter.track(app.locals.searchTerm);
+        });
+        socket.on("disconnect", () => {
+            console.log("client disconnected");
+            twitter.untrack(app.locals.searchTerm);
+        });
         socket.on("updateSearchTerm", (data, fn) => {
             twitter.untrack(app.locals.searchTerm);
             app.locals.searchTerm = data.term;
