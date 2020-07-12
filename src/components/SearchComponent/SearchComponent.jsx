@@ -42,8 +42,21 @@ const SearchComponent = () =>  {
         <AiOutlineSearch className="search-icon" onClick={()=> updateSearchPhrase()}/>
       </motion.div>
       <motion.div className="tweets-icon">
-        <AiFillTwitterCircle className="twitter-icon" onClick={() => updateLatestTweets()} />
+        <AiFillTwitterCircle className="twitter-icon" onClick={() => tweets.length && updateLatestTweets()} />
         { tweets.length ? <motion.span className="tweets-count" >{tweets.length}</motion.span> : null}
+        { tweets.length ? 
+          <motion.button 
+            initial={{ scale: 0 }}
+            animate={{ rotate: 360, scale: 1 }}
+            whileHover={{ scale: 1.1, transition: { yoyo:Infinity, duration: 0.3 } }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20
+            }}
+          onClick={() => tweets.length && updateLatestTweets()}
+          className="load-tweets">Load More</motion.button> 
+        : null}
       </motion.div>
     </motion.div>
   )

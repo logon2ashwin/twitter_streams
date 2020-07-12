@@ -11,6 +11,7 @@
     align-items: center;
     width: 80%;
     position: relative;
+    color: white;
     input[type="text"] {
       font-family: "Jost";
       font-size: 22px;
@@ -20,7 +21,12 @@
       outline: none;
       border: 0px;
       border-radius: 50px;
-      @include box-shadow(0px 0px 45px -10px rgba(66,64,66,1));
+      @include box-shadow(0px 0px 45px -10px $shadow);
+      color: white;
+      background-color: $element-bg;
+      &::placeholder { 
+        color: white;
+      }
     }
     .search-icon {
       width: 35px;
@@ -35,16 +41,35 @@
     .twitter-icon {
       width: 45px;
       height: 45px;
-      color: #1DA1F2;
+      color: $twitter-blue;
       cursor: pointer;
     }
     .tweets-count {
-      background-color: #FA3E3E;
+      background-color: $notify-red;
       padding: 0 7px;
       border-radius: 15px;
       top: -8px;
       position: absolute;
       right: -8px;
+    }
+    .load-tweets {
+      position: absolute;
+      bottom: -25px;
+      left: -20px;
+      width: 85px;
+      color: white;
+      background-color: $twitter-blue;
+      height: 25px;
+      border-radius: 15px;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      @media only screen and (max-width: 700px){
+        bottom: -35px;
+        left: -7px;
+        width: 60px;
+        height: 35px;
+      }
     }
   }
 }

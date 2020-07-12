@@ -11,7 +11,7 @@ module.exports = (app, io) => {
 
     let socketConnection;
 
-    app.locals.searchTerm = 'tony';
+    app.locals.searchTerm = 'Tony';
     app.locals.showRetweets = false;
 
     twitter.on('tweet', function (tweet) {

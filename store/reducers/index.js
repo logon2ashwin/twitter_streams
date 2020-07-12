@@ -3,7 +3,7 @@ import { SEARCH, LOAD_NEW_TWEETS, LOAD_TWEET, PHRASE_CHANGE_INIT, PHRASE_CHANGE_
 const initialState = {
   tweets:[],
   displayTweets: [],
-  searchPhrase: "tony",
+  searchPhrase: "Tony",
   socketDisconnected: false
 };
 
