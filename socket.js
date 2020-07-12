@@ -1,8 +1,13 @@
 import io from 'socket.io-client';
 
 let config = {
-  host : "127.0.0.1",
-  port: 5001
+  dev: {
+    host : "127.0.0.1",
+    port: 5001
+  },
+  prod: {
+    host : "https://ashwin-twitter-streams.herokuapp.com/"
+  }
 }
 if(process.env.ENV && process.env.ENV !== "dev") {
   config.port = process.env.PORT;
@@ -11,7 +16,8 @@ let socket;
 let status = "DISCONNECTED";
 
 const init = () => {
-  socket = io(`http://${config.host}:${config.port}`);
+  // http://${config.dev.host}:${config.dev.port}
+  socket = io(`http://${config.prod.host}`);
   socket.on('connect', function(){ 
     status = "CONNECTED";
   });
