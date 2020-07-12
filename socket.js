@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import { useSelector } from "react-redux";
 
 let config = {
   dev: {
@@ -18,7 +19,7 @@ let status = "DISCONNECTED";
 const init = () => {
   // http://${config.dev.host}:${config.dev.port}
   // config.prod.host
-  socket = io(config.prod.host);
+  socket = io(`http://${config.dev.host}:${config.dev.port}`);
   socket.on('connect', function(){ 
     status = "CONNECTED";
   });
