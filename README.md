@@ -5,6 +5,10 @@
 - Open new terminal and run `npm run devapp`
 - Open new terminal and run `npm run devserver`
 
+```
+Note: if you are setting up in local machine use `develop` branch
+```
+
 `apiconfig.js`
  ```
   const API_KEY = XXXXXXXXXXXXXXX;
@@ -22,10 +26,11 @@ module.exports = {
 
 # Prod SetUp
 
-- Run `npm run prodserver` to start server.
+- Run `npm run start` to start server.
 - For Prod environment you need to set the following fields as environment variable.
 
 ```
+PORT
 API_KEY
 API_SECRET_KEY
 ACCESS_TOKEN
