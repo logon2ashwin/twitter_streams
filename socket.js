@@ -10,9 +10,6 @@ let config = {
     host : "https://ashwin-twitter-streams.herokuapp.com/"
   }
 }
-if(process.env.ENV && process.env.ENV !== "dev") {
-  config.port = process.env.PORT;
-}
 let socket;
 let status = "DISCONNECTED";
 
