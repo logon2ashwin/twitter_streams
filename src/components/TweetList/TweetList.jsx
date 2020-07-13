@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import moment from "moment";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import "./TweetList.scss";
@@ -8,6 +7,10 @@ import "./TweetList.scss";
 const TweetList = (props) => {
   const searchPhrase = useSelector(store => store.searchPhrase);
   const displayTweets = useSelector(store => store.displayTweets);
+
+  const formatDate = (dateString) => {
+    return new Intl.DateTimeFormat('en', { month: 'long', day:'numeric', hour: 'numeric', minute: 'numeric'}).format(new Date(dateString));
+  }
 
   return (
     <motion.div className="tweets">
@@ -25,7 +28,7 @@ const TweetList = (props) => {
                     <FaUserCircle className="tweet-user-icon" />
                     <span className="user-name">{tweet.user.name} @{tweet.user.screen_name}</span>
                   </span>
-                  <span className="tweet-time">{moment(new Date(tweet.created_at)).format('MMMM Do, h:mm a')}</span>
+                  <span className="tweet-time">{formatDate(tweet.created_at)}</span>
                 </motion.li>
             }
           })
