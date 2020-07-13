@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import { unix } from "moment";
+import moment from "moment";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import "./TweetList.scss";
@@ -25,7 +25,7 @@ const TweetList = (props) => {
                     <FaUserCircle className="tweet-user-icon" />
                     <span className="user-name">{tweet.user.name} @{tweet.user.screen_name}</span>
                   </span>
-                  <span className="tweet-time">{unix(tweet.timestamp_ms).format('MMMM Do, h:mm a')}</span>
+                  <span className="tweet-time">{moment(new Date(tweet.created_at)).format('MMMM Do, h:mm a')}</span>
                 </motion.li>
             }
           })
